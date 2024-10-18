@@ -69,4 +69,4 @@ What are you waiting for? 🤔 Join the thousands of satisfied users who have al
 
 Get started now and unlock your full potential! 💫
 
-[Sign Up Now](https://www.example.com/signup) 🔗
+[Sign Up Now](https://pubmed.ncbi.nlm.nih.gov) 🔗

@@ -145,15 +145,31 @@ if __name__ == '__main__':
     criterion = nn.MSELoss()  
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)  
 
-    # Train the model  
-    num_epochs = 50  
-    train_model(model, train_dataloader, criterion, optimizer, device, num_epochs)  
+    # T# Define the optimizer and learning rate scheduler
+initial_lr = 0.001  # Use a smaller learning rate
+optimizer = Adam(model.parameters(), lr=initial_lr)
+scheduler = ReduceLROnPlateau(optimizer, 'min', factor=0.5, patience=5, verbose=True)
 
-    # Evaluate the model on the validation set  
-    val_loss = evaluate_model(model, val_dataloader, device)  
-    print(f'Validation Loss: {val_loss}')  
+# Update the training loop to include validation loss checking
+for epoch in range(num_epochs):
+    print(f'Epoch {epoch+1}/{num_epochs}')
+    train_loss = train_model(model, train_dataloader, criterion, optimizer, device)
+    val_loss = evaluate_model(model, val_dataloader, device)
+    
+    print(f'Train Loss: {train_loss}, Validation Loss: {val_loss}')
 
-    # Predict and visualize the structure for a new sequence  
-    new_sequence = 'MKTVRQERLKSIVRILERSKEPNPQPGTTHDIVSRWALSTYLNGADFMPVLGFGTYAYPGKITFNEHGRQSIRGNMKDKPVRGAQLANGALRMIPASQWVIRNVSEEVAQLKKNIGIALIKTNNCALADALLDSVPTPSNPPTTEEEKTESNQPEVTCVVVTDSQYALNGNGNEVTMTLHFMFLRLNARGRKTLRSIAFPQTDINLFLNGSLVDGQTGPHKIQGINALCAIHPQYLAKANASWRIFLQSDRYKYWDVNEV'  
-    predicted_structure = predict_structure(model, new_sequence, device)  
-    visualize_structure('data/new_sequence.pdb', predicted_structure)
+    # Step the scheduler
+    scheduler.step(val_loss)
+
+    # Save model checkpoint if validation loss improved
+    if val_loss < best_val_loss:  # best_val_loss should be defined and stored initially
+        best_val_loss = val_loss
+        torch.save(model.state_dict(), 'best_model.pth')
+
+# Load best model for prediction
+model.load_state_dict(torch.load('best_model.pth'))
+
+# Predict and visualize the structure for a new sequence
+new_sequence = 'MKTVRQERLKSIVRILERSKEPNPQPGTTHDIVSRWALSTYLNGADFMPVLGFGTYAYPGKITFNEHGRQSIRGNMKDKPVRGAQLANGALRMIPASQWVIRNVSEEVAQLKKNIGIALIKTNNCALADALLDSVPTPSNPPTTEEEKTESNQPEVTCVVVTDSQYALNGNGNEVTMTLHFMFLRLNARGRKTLRSIAFPQTDINLFLNGSLVDGQTGPHKIQGINALCAIHPQYLAKANASWRIFLQSDRYKYWDVNEV'  
+predicted_structure = predict_structure(model, new_sequence, device)  
+visualize_structure('data/new_sequence.pdb', predicted_structure)

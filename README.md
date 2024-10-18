@@ -7,7 +7,7 @@ Are you tired of feeling overwhelmed by the endless to-do lists and the never-en
 
 Imagine a world where you no longer have to juggle multiple apps, sticky notes, and spreadsheets to keep your life organized. 🙌 Our innovative system combines the power of artificial intelligence, machine learning, and natural language processing to create a seamless, personalized experience that will take your productivity to new heights. 🛫
 
-## How Does It Work? 🤖
+## How Does It Work? 
 
 At the heart of our system is a powerful AI assistant that learns your unique preferences, habits, and goals. 🧠 Using advanced algorithms, it analyzes your daily activities, identifies patterns, and offers personalized suggestions to help you optimize your workflow. 📊
 

@@ -67,6 +67,6 @@ Are you ready to take your productivity to the next level? 🚀 Sign up for our 
 
 What are you waiting for? 🤔 Join the thousands of satisfied users who have already transformed their lives with our innovative solution. 🙌
 
-Get started now and unlock your full potential! 💫
+Get started now and unlock your full potential! 
 
 [Sign Up Now](https://pubmed.ncbi.nlm.nih.gov) 🔗
